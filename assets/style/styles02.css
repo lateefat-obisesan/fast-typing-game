@@ -1,0 +1,33 @@
+@charset "utf-8";
+
+body {
+    font-family: Arial;
+    text-align: center;
+    background: linear-gradient(to right, #1e3c72, #2a5298);
+    color: white;
+}
+
+#game {
+    margin-top: 50px;
+}
+
+input {
+    padding: 10px;
+    font-size: 18px;
+    width: 250px;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 18px;
+    margin-top: 10px;
+    cursor: pointer;
+}
+
+.correct {
+    color: lightgreen;
+}
+
+.wrong {
+    color: red;
+}
