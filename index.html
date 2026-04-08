@@ -3,18 +3,24 @@
     <head>
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="authors" content="Team 2">
+        <meta name="authors" content="Team 5">
         <meta name="description" content="fast-typing-game">
         <meta name="keywords" content="html, css, web, web development, javascript">
-        <link rel="icon" href="" type="image/x-icon">
+        <link rel="icon" href="./assets/media/favicon.png" type="image/x-icon">
         <link rel="stylesheet" href="./assets/style/styles.css" media="all">
         <script src="./assets/script/script.js" defer></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Fast-typing-game</title>
     </head>
     <body>
-        <div class="container">
-
+        <h1>SpeedType 99</h1>
+        <div id="game">
+            <p>Time: <span id="time">99</span>s</p>
+            <p>Score: <span id="score">0</span></p>
+            <h2 id="word">Press Start</h2>
+            <input type="text" id="input" placeholder="Type here..." disabled>
+            <button id="startBtn">Start Game</button>
         </div>
+        <audio id="bgMusic" src="music.mp3" loop></audio>
     </body>
 </html>
