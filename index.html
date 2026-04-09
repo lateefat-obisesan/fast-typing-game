@@ -12,7 +12,12 @@
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <title>Type-Fast</title>
     </head>
-    <body>
+    <body class="theme">
+        <button id="themeBtn" class="top-left-btn">Change Background-Color</button>
+        <div class="volume-controls">
+            <button id="muteBtn"> Mute</button>
+            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+        </div>
         <h1>Welcome to Type-Fast</h1>
         <div id="game">
             <p>Time: <span id="time">99</span>secs</p>
