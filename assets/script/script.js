@@ -25,14 +25,13 @@ let currentWord = "";
 let timer = null;
 
 const wordEl = document.getElementById("word");
-const input = document.getElementById("input");
+const inputEl = document.getElementById("input");
 const timeEl = document.getElementById("time");
 const scoreEl = document.getElementById("score");
 const startBtn = document.getElementById("startBtn");
 const themeBtn = document.getElementById("themeBtn");
 const volumeSlider = document.getElementById("volumeSlider");
 const muteBtn = document.getElementById("muteBtn");
-
 
 class Score {
     #date;
@@ -55,12 +54,9 @@ function getRandomWord() {
 }
 
 function nextWord() {
-    return words [Math.floor (Math.random() * words.length)];
-}
-
-function nextWord() {
     currentWord = getRandomWord();
     wordEl.textContent = currentWord;
+    wordEl.style.color = "white";
 }
 
 function startGame() {
@@ -84,9 +80,7 @@ function startGame() {
 function updateTime() {
     time--;
     timeEl.textContent = time;
-    if (time <= 0) {
-        endGame();
-    }
+    if (time <= 0) endGame();
 }
 
 function endGame() {
@@ -99,14 +93,12 @@ function endGame() {
     const finalResult = new Score(today, score, percentage);
 
     if (score === words.length) {
-        winSound.play();
-        wordEl.textContent = "Winner!";
+        winningSound.play();
+        wordEl.textContent = `Winner! Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
     } else {
-        failSound.play();
-        wordEl.textContent = "Game Over!";
+        endSound.play();
+        wordEl.textContent = `Game Over! Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
     }
-
-    wordEl.textContent = `Game Over! Score: ${gameScore.getHits()} (${gameScore.getPercentage()}%)`;
 }
 
 startBtn.addEventListener("click", startGame);
