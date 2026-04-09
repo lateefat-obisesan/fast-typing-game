@@ -98,5 +98,45 @@ function endGame() {
     const today = new Date().toLocaleDateString();
     const finalResult = new Score(today, score, percentage);
 
+    if (score === words.length) {
+        winSound.play();
+        wordEl.textContent = "Winner!";
+    } else {
+        failSound.play();
+        wordEl.textContent = "Game Over!";
+    }
+
     wordEl.textContent = `Game Over! Score: ${gameScore.getHits()} (${gameScore.getPercentage()}%)`;
 }
+
+startBtn.addEventListener("click", startGame);
+
+inputEl.addEventListener("input", () => {
+    if (inputEl.value.trim(). toLowerCase() === currentWord.toLowerCase()) {
+        score++;
+        scoreEl.textContent = score;
+        inputEl.value ="";
+        if (score === words.length) {
+            endGame();
+        } else {
+            nextWord();
+        }
+    }
+});
+
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle('theme-pink');
+});
+
+volumeSlider.addEventListener("input", (e) => {
+    const vol = e.target.value;
+    backgroundMusic.volume = vol;
+    winSound.volume = vol;
+    failSound.volume = vol;
+});
+
+muteBtn.addEventListener("click", () => {
+    const isMuted = backgroundMusic.muted = !backgroundMusic.muted;
+    winSound.muted = failSound.muted = isMuted;
+    muteBtn.textContent = isMuted ? "Unmute" : "Mute";
+});
