@@ -19,21 +19,21 @@ backgroundMusic.loop= true;
 const gameOverMusic = new Audio (' ./assets/media/end.mp3');
 const victoryMusic = new Audio (' ./assets/media/winning.mp3');
 
-
-
 let time = 99;
 let score = 0;
 let currentWord = "";
-let timer;
+let timer = null;
 
 const wordEl = document.getElementById("word");
 const input = document.getElementById("input");
 const timeEl = document.getElementById("time");
 const scoreEl = document.getElementById("score");
 const startBtn = document.getElementById("startBtn");
-const music = document.getElementById("bgMusic");
+const themeBtn = document.getElementById("themeBtn");
+const volumeSlider = document.getElementById("volumeSlider");
+const muteBtn = document.getElementById("muteBtn");
 
-// Score Class
+
 class Score {
     #date;
     #hits;
@@ -45,31 +45,36 @@ class Score {
         this.#percentage = percentage;
     }
 
-    getDate() {
-        return this.#date;
-    }
-    getHits() {
-        return this.#hits;
-    }
-    getPercentage() {
-        return this.#percentage;
-    }
+    getDate() {return this.#date;}
+    getHits() {return this.#hits;}
+    getPercentage() {return this.#percentage;}
 }
 
-// Random word
 function getRandomWord() {
     return words[Math.floor(Math.random() * words.length)];
 }
 
-// Start Game
-startBtn.addEventListener("click", startGame);
+function nextWord() {
+    return words [Math.floor (Math.random() * words.length)];
+}
+
+function nextWord() {
+    currentWord = getRandomWord();
+    wordEl.textContent = currentWord;
+}
 
 function startGame() {
     time = 99;
     score = 0;
-    input.disabled = false;
-    input.value = "";
-    input.focus();
+    timeEl.textContent = time;
+    scoreEl.textContent = score;
+    
+    inputEl.disabled = false;
+    inputEl.value = "";
+    inputEl.focus();
+    
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.play();
 
     nextWord();
     clearInterval(timer);
