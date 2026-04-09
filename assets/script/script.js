@@ -81,45 +81,22 @@ function startGame() {
     timer = setInterval(updateTime, 1000);
 }
 
-// Timer
 function updateTime() {
     time--;
     timeEl.textContent = time;
-
     if (time <= 0) {
         endGame();
     }
 }
 
-// Next word
-function nextWord() {
-    currentWord = getRandomWord();
-    wordEl.textContent = currentWord;
-}
-
-// Typing logic
-input.addEventListener("input", () => {
-    if (input.value === currentWord) {
-        score++;
-        scoreEl.textContent = score;
-        input.value = "";
-        nextWord();
-
-        if (score === words.length) {
-            endGame();
-        }
-    }
-});
-
-// End Game
 function endGame() {
     clearInterval(timer);
-    input.disabled = true;
-    music.pause();
-    music.currentTime = 0;
+    inputEl.disabled = true;
+    backgroundMusic.pause();
 
     const percentage = Math.round((score / words.length) * 100);
-    const gameScore = new Score(new Date(), score, percentage);
+    const today = new Date().toLocaleDateString();
+    const finalResult = new Score(today, score, percentage);
 
     wordEl.textContent = `Game Over! Score: ${gameScore.getHits()} (${gameScore.getPercentage()}%)`;
 }
