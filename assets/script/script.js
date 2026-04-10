@@ -1,19 +1,6 @@
 'use strict';
 
-const words = ['dinosaur','love','pineapple','calendar','robot',
-    'building','population','weather','bottle','history','dream',
-    'character','money','absolute','discipline','machine','accurate',
-    'connection','rainbow','bicycle','eclipse','calculator','trouble',
-    'watermelon','developer','philosophy','database','periodic','capitalism',
-    'abominable','component','future','pasta','microwave','jungle','wallet',
-    'canada','coffee','beauty','agency','chocolate','eleven','technology',
-    'alphabet','knowledge','magician','professor','triangle','earthquake',
-    'baseball','beyond','evolution','banana','perfumer','computer','management',
-    'discovery','ambition','music','eagle','crown','chess','laptop','bedroom',
-    'delivery','enemy','button','superman','library','unboxing','bookstore',
-    'language','homework','fantastic','economy','interview','awesome','challenge',
-    'science','mystery','famous','league','memory','leather','planet','software',
-    'update','yellow','keyboard','window'];
+const words = ['dinosaur','love','pineapple','calendar','robot','building','population','weather','bottle','history','dream','character','money','absolute','discipline','machine','accurate','connection','rainbow','bicycle','eclipse','calculator','trouble','watermelon','developer','philosophy','database','periodic','capitalism','abominable','component','future','pasta','microwave','jungle','wallet','canada','coffee','beauty','agency','chocolate','eleven','technology','alphabet','knowledge','magician','professor','triangle','earthquake','baseball','beyond','evolution','banana','perfumer','computer','management','discovery','ambition','music','eagle','crown','chess','laptop','bedroom','delivery','enemy','button','superman','library','unboxing','bookstore','language','homework','fantastic','economy','interview','awesome','challenge','science','mystery','famous','league','memory','leather','planet','software','update','yellow','keyboard','window'];
 
 const backgroundMusic = new Audio('./assets/media/background-sound.mp3');
 backgroundMusic.loop = true;
@@ -59,44 +46,39 @@ function nextWord() {
     wordEl.style.color = "white";
 }
 
+// FIXED: Removed the double "function" declaration
 function startGame() {
     clearInterval(timer);
-    backgroundMusic.pause();
-    backgroundMusic.currentTime = 0;
-    time = 99;
-    score = 0;
-    totalWordsShown = 0;
-    timeEl.textContent = time;
-    scoreEl.textContent = score;
-    inputEl.disabled = false;
-    inputEl.value = "";
-    inputEl.focus();
-
-  function startGame() {
-    clearInterval(timer);
+    
+    // Stop any music already playing and reset
     backgroundMusic.pause(); 
     backgroundMusic.currentTime = 0; 
 
+    // Reset game stats
     time = 99;
     score = 0;
     totalWordsShown = 0;
     timeEl.textContent = time;
     scoreEl.textContent = score;
 
+    // UI Setup
     inputEl.disabled = false;
     inputEl.value = "";
     inputEl.focus();
 
+    // Sound Setup
     backgroundMusic.loop = true;
     backgroundMusic.volume = volumeSlider.value; 
     
+    // Try to play sound
     backgroundMusic.play().catch(error => {
         console.log("Audio blocked:", error);
     });
 
     nextWord();
+    
+    // Start the countdown
     timer = setInterval(updateTime, 1000);
-}
 }
 
 function updateTime() {
@@ -110,7 +92,8 @@ function endGame() {
     inputEl.disabled = true;
     inputEl.blur();
     backgroundMusic.pause();
-    const percentage = Math.round((score / totalWordsShown) * 100);
+
+    const percentage = totalWordsShown > 0 ? Math.round((score / totalWordsShown) * 100) : 0;
     const today = new Date().toLocaleDateString();
     const finalResult = new Score(today, score, percentage);
 
@@ -132,7 +115,6 @@ inputEl.addEventListener("input", () => {
         wordEl.style.color = "white";
     } else {
         wordEl.style.color = "red";
-    
         inputEl.value = typed.slice(0, -1); 
         return; 
     }
