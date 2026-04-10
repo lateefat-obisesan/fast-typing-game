@@ -36,7 +36,13 @@ body.purple {
     top: 30px; 
     left: 30px;
     font-weight: 400; 
+    z-index: 10;
 }
+
+#statsBtn {
+    left: 185px; 
+}
+
 .vol-box { 
     position: absolute; 
     top: 30px; 
@@ -75,7 +81,7 @@ body.purple {
 }
 
 h1 {
-   font-size: 3.5rem;
+    font-size: 3.5rem;
     font-weight: 800;
     letter-spacing: 2px;
     text-transform: uppercase;
@@ -153,6 +159,78 @@ button:hover {
 #startBtn:hover {
    background: var(--btn-hover);
     transform: scale(1.05);
+}
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: -350px;
+    width: 320px;
+    height: 100%;
+    background: var(--btn-bg);
+    backdrop-filter: blur(15px);
+    box-shadow: -10px 0 30px rgba(0,0,0,0.5);
+    transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 2000;
+    padding: 30px;
+    text-align: left;
+}
+
+.sidebar.active {
+    right: 0;
+}
+
+.sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.user-main-icon {
+    font-size: 3.5rem;
+}
+
+#closeSidebar {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: #fff;
+    cursor: pointer;
+    padding: 0;
+}
+
+#highScoresList {
+    list-style: none;
+    margin: 20px 0;
+}
+
+#highScoresList li {
+    font-size: 1.5rem;
+    padding: 10px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+}
+
+.sidebar-content h3 {
+    margin-top: 25px;
+}
+
+.rank-scroller {
+    margin-top: 15px;
+    background: rgba(0,0,0,0.2);
+    border-radius: 10px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.rank-item {
+    font-weight: bold;
+    padding: 5px 0;
+    animation: slideLeftRight 4s infinite alternate ease-in-out;
+}
+
+@keyframes slideLeftRight {
+    from { transform: translateX(-15px); }
+    to { transform: translateX(15px); }
 }
 
 /* Tablet and Small Screens (below 768px) */
