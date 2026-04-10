@@ -15,10 +15,10 @@ const words = ['dinosaur','love','pineapple','calendar','robot',
     'science','mystery','famous','league','memory','leather','planet','software',
     'update','yellow','keyboard','window'];
 
-const backgroundMusic = new Audio('./assets/media/background.mp3');
+const backgroundMusic = new Audio('./assets/media/background-sound.mp3');
 backgroundMusic.loop = true;
 const gameOverMusic = new Audio('./assets/media/end.mp3');
-const victoryMusic = new Audio('./assets/media/winning.mp3');
+const victoryMusic = new Audio('./assets/media/Winning-sounds.mp3');
 
 let time = 99;
 let score = 0;
@@ -65,7 +65,7 @@ function startGame() {
     inputEl.value = "";
     inputEl.focus();
     backgroundMusic.currentTime = 0;
-    backgroundMusic.play();
+    backgroundMusic.play().catch(() => console.log("Click the page to enable audio"));
     nextWord();
     clearInterval(timer);
     timer = setInterval(updateTime, 1000);
