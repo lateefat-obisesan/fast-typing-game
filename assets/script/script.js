@@ -13,20 +13,26 @@ const words = ['dinosaur','love','pineapple','calendar','robot','building','popu
             'mystery','famous','league','memory','leather','planet','software','update','yellow','keyboard',
             'window'];
 
+const backgroundMusic = new Audio ('./assets/media/background.mp3');
+backgroundMusic.loop= true;
+
+const gameOverMusic = new Audio ('./assets/media/end.mp3');
+const victoryMusic = new Audio ('./assets/media/winning.mp3');
 
 let time = 99;
 let score = 0;
 let currentWord = "";
-let timer;
+let timer = null;
 
 const wordEl = document.getElementById("word");
-const input = document.getElementById("input");
+const inputEl = document.getElementById("input");
 const timeEl = document.getElementById("time");
 const scoreEl = document.getElementById("score");
 const startBtn = document.getElementById("startBtn");
-const music = document.getElementById("bgMusic");
+const themeBtn = document.getElementById("themeBtn");
+const volumeSlider = document.getElementById("volumeSlider");
+const muteBtn = document.getElementById("muteBtn");
 
-// Score Class
 class Score {
     #date;
     #hits;
@@ -38,76 +44,99 @@ class Score {
         this.#percentage = percentage;
     }
 
-    getDate() {
-        return this.#date;
-    }
-    getHits() {
-        return this.#hits;
-    }
-    getPercentage() {
-        return this.#percentage;
-    }
+    getDate() {return this.#date;}
+    getHits() {return this.#hits;}
+    getPercentage() {return this.#percentage;}
 }
 
-// Random word
 function getRandomWord() {
     return words[Math.floor(Math.random() * words.length)];
 }
 
-// Start Game
-startBtn.addEventListener("click", startGame);
+function nextWord() {
+    currentWord = getRandomWord();
+    wordEl.textContent = currentWord;
+    wordEl.style.color = "white";
+}
 
 function startGame() {
     time = 99;
     score = 0;
-    input.disabled = false;
-    input.value = "";
-    input.focus();
+    timeEl.textContent = time;
+    scoreEl.textContent = score;
+    
+    inputEl.disabled = false;
+    inputEl.value = "";
+    inputEl.focus();
+    
+    backgroundMusic.currentTime = 0;
+    backgroundMusic.play();
 
     nextWord();
     clearInterval(timer);
     timer = setInterval(updateTime, 1000);
 }
 
-// Timer
 function updateTime() {
     time--;
     timeEl.textContent = time;
+    if (time <= 0) endGame();
+}
 
-    if (time <= 0) {
-        endGame();
+function endGame() {
+    clearInterval(timer);
+    inputEl.disabled = true;
+    backgroundMusic.pause();
+
+    const percentage = Math.round((score / words.length) * 100);
+    const today = new Date().toLocaleDateString();
+    const finalResult = new Score(today, score, percentage);
+
+    if (score === words.length) {
+        victoryMusic.play();
+        wordEl.textContent = `Winner! Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
+    } else {
+        gameOverMusic.play();
+        wordEl.textContent = `Game Over! Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
     }
 }
 
-// Next word
-function nextWord() {
-    currentWord = getRandomWord();
-    wordEl.textContent = currentWord;
-}
+startBtn.addEventListener("click", startGame);
 
-// Typing logic
-input.addEventListener("input", () => {
-    if (input.value === currentWord) {
+inputEl.addEventListener("input", () => {
+   const typedValue = inputEl.value.toLowerCase();
+    const targetWord = currentWord.toLowerCase();
+    if (targetWord.startsWith(typedValue)) {
+        wordEl.style.color = "white";
+    } else {
+        wordEl.style.color = "red";
+    }
+
+    if (typedValue === targetWord) {
         score++;
         scoreEl.textContent = score;
-        input.value = "";
-        nextWord();
-
+        inputEl.value = "";
         if (score === words.length) {
             endGame();
+        } else {
+            nextWord();
         }
     }
 });
 
-// End Game
-function endGame() {
-    clearInterval(timer);
-    input.disabled = true;
-    music.pause();
-    music.currentTime = 0;
+themeBtn.addEventListener("click", () => {
+    document.body.classList.toggle('theme-pink');
+});
 
-    const percentage = Math.round((score / words.length) * 100);
-    const gameScore = new Score(new Date(), score, percentage);
+volumeSlider.addEventListener("input", (e) => {
+    const vol = e.target.value;
+    backgroundMusic.volume = vol;
+    victoryMusic.volume = vol;
+    gameOverMusic.volume = vol;
+});
 
-    wordEl.textContent = `Game Over! Score: ${gameScore.getHits()} (${gameScore.getPercentage()}%)`;
-}
+muteBtn.addEventListener("click", () => {
+    const isMuted = backgroundMusic.muted = !backgroundMusic.muted;
+    winSound.muted = failSound.muted = isMuted;
+    muteBtn.textContent = isMuted ? "Unmute" : "Mute";
+});
