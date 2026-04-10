@@ -131,8 +131,8 @@ themeBtn.addEventListener("click", () => {
 volumeSlider.addEventListener("input", (e) => {
     const vol = e.target.value;
     backgroundMusic.volume = vol;
-    winSound.volume = vol;
-    failSound.volume = vol;
+    victoryMusic.volume = vol;
+    gameOverMusic.volume = vol;
 });
 
 muteBtn.addEventListener("click", () => {
