@@ -23,4 +23,20 @@ The game includes sound effects, themes, player statistics, and persistent high 
 - JavaScript
 - Font Awesome
 
-## Project Structure
+## How to Play
+1. Click [ **Start Game**]( https://lateefat-obisesan.github.io/fast-typing-game/)
+2. Type the word shown on the screen
+3. Gain points for every correct word
+4. Continue typing before the timer ends
+5. View your score and ranking after the game
+
+## Author
+**Team members**
+- Lateefat
+- Ivan
+
+## Live Demo
+**Click [here]( https://lateefat-obisesan.github.io/fast-typing-game/) to play:**  
+
+## Note
+This project was developed for educational purposes as part of a web development course.
