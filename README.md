@@ -24,7 +24,7 @@ The game includes sound effects, themes, player statistics, and persistent high 
 - Font Awesome
 
 ## How to Play
-1. Click [ **Start Game**]( https://lateefat-obisesan.github.io/fast-typing-game/)
+1. Click [**Start Game**](https://lateefat-obisesan.github.io/fast-typing-game/)
 2. Type the word shown on the screen
 3. Gain points for every correct word
 4. Continue typing before the timer ends
