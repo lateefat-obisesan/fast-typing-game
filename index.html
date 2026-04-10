@@ -13,15 +13,17 @@
         <title>Type-Fast</title>
     </head>
     <body class="theme">
-        <button id="themeBtn" class="top-left-btn">Change Background-Color</button>
-        <div class="vol-box">
+        <button id="themeBtn" class="top-left-btn">Change Theme</button>
+        <div class="vol-stack">
             <button id="muteBtn"> Mute</button>
             <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
         </div>
         <h1>Welcome to Type-Fast</h1>
         <div id="game">
-            <p>Time: <span id="time">99</span>secs</p>
-            <p>Score: <span id="score">0</span></p>
+            <div class="stats">
+                <p>Time: <span id="time">99</span>s</p>
+                <p>Score: <span id="score">0</span></p>
+            </div>
             <h2 id="word">Ready?</h2>
             <input type="text" id="input" placeholder="Type here..." disabled autocomplete="off">
             <button id="startBtn">Start Game</button>
