@@ -126,6 +126,11 @@ inputEl.addEventListener("input", () => {
         score++;
         scoreEl.textContent = score;
         inputEl.value = "";
+
+        if (score === words.length) {
+            endGame(); 
+            return; 
+        }
         nextWord();
     }
 });
