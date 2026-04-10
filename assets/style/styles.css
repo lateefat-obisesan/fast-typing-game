@@ -31,14 +31,6 @@ body.purple {
     background: linear-gradient(135deg, #4b0082, #a742f5, #ff6b6b);
 }
 
-.top-left-btn { 
-    position: absolute; 
-    top: 30px; 
-    left: 30px;
-    font-weight: 400; 
-    z-index: 10;
-}
-
 .controls-left {
     position: absolute;
     top: 30px;
@@ -51,12 +43,8 @@ body.purple {
 
 .control-btn {
     width: 170px;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     padding: 12px;
-}
-
-#statsBtn {
-    left: 185px; 
 }
 
 .vol-box { 
@@ -153,7 +141,7 @@ input::placeholder {
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.8);
+    background: rgba(0, 0, 0, 0.85);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -170,14 +158,21 @@ input::placeholder {
 
 .modal-content {
     background: var(--btn-bg);
-    padding: 40px;
+    padding: 35px;
     border-radius: 25px;
     width: 90%;
-    max-width: 450px;
-    position: relative;
+    max-width: 420px;
     box-shadow: 0 20px 60px rgba(0,0,0,0.6);
     transform: scale(0.8);
     text-align: center;
+}
+
+.modal-body h3 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
 .stats-modal.active .modal-content {
@@ -211,37 +206,47 @@ input::placeholder {
 #highScoresList {
     list-style: none;
     margin: 15px 0;
+    gap: 15px;
 }
 
 #highScoresList li {
-    font-size: 1.4rem;
-    padding: 10px;
+    font-size: 1.5rem;
+    font-weight: 500;
+    padding: 15px 25px;
     background: rgba(255,255,255,0.05);
     margin-bottom: 8px;
-    border-radius: 8px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
 }
 
 .rank-window {
-    background: rgba(0,0,0,0.3);
-    border-radius: 12px;
-    padding: 15px;
+    background: rgba(0,0,0,0.5);
+    border-radius: 15px;
+    padding: 20px 0;
     overflow: hidden;
     white-space: nowrap;
     margin-top: 20px;
+    width: 100%;
 }
 
 .rank-slider {
     display: inline-block;
-    animation: slideContinuous 10s linear infinite alternate;
+    white-space: nowrap;
+  animation: slideSeamless 10s linear infinite;
 }
 
 .rank-slider span {
-    margin-right: 40px;
-    font-weight: bold;
-    font-size: 1.1rem;
+    display: inline-block;
+    padding: 0 30px; 
+    font-weight: 700;
+    font-size: 1.5rem;
+    color: #fff;
+    text-transform: uppercase;
 }
 
-@keyframes slideContinuous {
+@keyframes slideSeamless {
     0% { transform: translateX(0); }
     100% { transform: translateX(-50%); }
 }
@@ -320,9 +325,15 @@ button:hover {
 }
 
 #highScoresList li {
-    font-size: 1.5rem;
-    padding: 10px 0;
-    border-bottom: 1px solid rgba(255,255,255,0.1);
+   font-size: 1.5rem;
+    font-weight: 500; 
+    padding: 15px 25px;
+    background: rgba(255, 255, 255, 0.05);
+    margin-bottom: 8px;
+    border-radius: 12px;
+    display: flex;
+    justify-content: space-between; 
+    align-items: center;
 }
 
 .sidebar-content h3 {
@@ -350,65 +361,51 @@ button:hover {
 
 /* Tablet and Small Screens (below 768px) */
 @media (max-width: 768px) {
-    h1 {
-        font-size: 2.5rem; 
+    h1 { 
+        font-size: 2.2rem;
+     }
+    #game { 
+        width: 95%;
+        padding: 25px;
     }
-
-    #game {
-        width: 90%;
-        padding: 20px;
+    .stats { 
+        gap: 50px; 
+        font-size: 1.5rem; 
+        justify-content: center; 
     }
-
-    .stats {
-        gap: 0; 
-        justify-content: space-between;
-        font-size: 1.4rem;
-    }
-
-    #word {
-        font-size: 2.8rem; 
-    }
-
-    input {
+    #word { font-size: 2.8rem; }
+    input { 
         width: 100%; 
-        font-size: 1.5rem;
+        font-size: 1.6rem; 
+    }
+    .modal-content { 
+        width: 95%; 
+        padding: 20px; 
     }
 }
 
-/* Mobile Screens (below 480px) */
+/* Mobile Screens */
 @media (max-width: 480px) {
-    .top-left-btn, .vol-box {
-        position: static;
-        margin: 10px auto;
+    .controls-left { 
+        top: 10px; 
+        left: 10px;
     }
-
-    body {
-        justify-content: flex-start; 
-        padding-top: 20px;
-        overflow-y: auto; 
+    .control-btn { 
+        width: 140px; 
+        font-size: 0.9rem; 
+        padding: 8px; 
     }
-
-    h1 {
-        font-size: 1.8rem;
+    .vol-box { 
+        top: 10px; 
+        right: 10px; 
     }
-
-    #game {
-        padding: 15px;
+    h1 { 
+        font-size: 1.6rem; 
+        margin-top: 100px; 
     }
-
-    .stats {
-        flex-direction: column; 
-        gap: 5px;
-        font-size: 1.2rem;
-    }
-
-    #word {
-        font-size: 2.2rem;
-        margin: 15px 0;
-    }
-
-    button {
-        font-size: 1.4rem;
-        padding: 10px 20px;
+    #word { font-size: 2rem; }
+    .stats { 
+        font-size: 1.2rem; 
+        gap: 20px; 
     }
 }
