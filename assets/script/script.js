@@ -15,10 +15,11 @@ const words = ['dinosaur','love','pineapple','calendar','robot',
     'science','mystery','famous','league','memory','leather','planet','software',
     'update','yellow','keyboard','window'];
 
-const backgroundMusic = new Audio('../assets/media/background-sound.mp3');
+const backgroundMusic = new Audio('./assets/media/background-sound.mp3');
 backgroundMusic.loop = true;
-const gameOverMusic = new Audio('../assets/media/end.mp3');
-const victoryMusic = new Audio('../assets/media/winning-sound.mp3');
+
+const gameOverMusic = new Audio('./assets/media/end.mp3');
+const victoryMusic = new Audio('./assets/media/winning-sound.mp3');
 
 let time = 99;
 let score = 0;
