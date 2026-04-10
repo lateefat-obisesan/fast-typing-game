@@ -2,11 +2,18 @@
 @import"./reset.css";
 
 body {
-    font-family: Arial;
+    font-family: sans-serif;
+    color: #fff;
     text-align: center;
-    background: linear-gradient(to right, #1e3c72, #2a5298);
-    color: white;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    transition: 0.4s;
 }
+
+body.theme { background: linear-gradient(135deg, #1e3c72, #2a5298); }
+body.pink { background: linear-gradient(135deg, #ff758c, #ff7eb3); }
 
 #game {
     margin-top: 50px;
