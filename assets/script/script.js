@@ -13,11 +13,11 @@ const words = ['dinosaur','love','pineapple','calendar','robot','building','popu
             'mystery','famous','league','memory','leather','planet','software','update','yellow','keyboard',
             'window'];
 
-const backgroundMusic = new Audio (' ./assets/media/background.mp3');
+const backgroundMusic = new Audio ('./assets/media/background.mp3');
 backgroundMusic.loop= true;
 
-const gameOverMusic = new Audio (' ./assets/media/end.mp3');
-const victoryMusic = new Audio (' ./assets/media/winning.mp3');
+const gameOverMusic = new Audio ('./assets/media/end.mp3');
+const victoryMusic = new Audio ('./assets/media/winning.mp3');
 
 let time = 99;
 let score = 0;
@@ -93,10 +93,10 @@ function endGame() {
     const finalResult = new Score(today, score, percentage);
 
     if (score === words.length) {
-        winningSound.play();
+        victoryMusic.play();
         wordEl.textContent = `Winner! Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
     } else {
-        endSound.play();
+        gameOverMusic.play();
         wordEl.textContent = `Game Over! Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
     }
 }
@@ -104,10 +104,18 @@ function endGame() {
 startBtn.addEventListener("click", startGame);
 
 inputEl.addEventListener("input", () => {
-    if (inputEl.value.trim(). toLowerCase() === currentWord.toLowerCase()) {
+   const typedValue = inputEl.value.toLowerCase();
+    const targetWord = currentWord.toLowerCase();
+    if (targetWord.startsWith(typedValue)) {
+        wordEl.style.color = "white";
+    } else {
+        wordEl.style.color = "red";
+    }
+
+    if (typedValue === targetWord) {
         score++;
         scoreEl.textContent = score;
-        inputEl.value ="";
+        inputEl.value = "";
         if (score === words.length) {
             endGame();
         } else {
