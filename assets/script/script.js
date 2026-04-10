@@ -38,6 +38,7 @@ const scoreEl = document.getElementById("score");
 const startBtn = document.getElementById("startBtn");
 const sidebar = document.getElementById("statsSidebar");
 const statsBtn = document.getElementById("statsBtn");
+const closeSidebar = document.getElementById("closeSidebar");
 const themeBtn = document.getElementById("themeBtn");
 const volumeSlider = document.getElementById("volumeSlider");
 const muteBtn = document.getElementById("muteBtn");
