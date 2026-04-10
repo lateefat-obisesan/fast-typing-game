@@ -28,22 +28,31 @@ let currentWord = "";
 let timer = null;
 let totalWordsShown = 0;
 
+// Retrieve High Scores from LocalStorage (JSON.parse converts string to Array)
+let highScores = JSON.parse(localStorage.getItem('highScores')) || [0, 0, 0];
+
 const wordEl = document.getElementById("word");
 const inputEl = document.getElementById("input");
 const timeEl = document.getElementById("time");
 const scoreEl = document.getElementById("score");
 const startBtn = document.getElementById("startBtn");
+const sidebar = document.getElementById("statsSidebar");
+const statsBtn = document.getElementById("statsBtn");
 const themeBtn = document.getElementById("themeBtn");
 const volumeSlider = document.getElementById("volumeSlider");
 const muteBtn = document.getElementById("muteBtn");
 
 class Score {
-    #date; #hits; #percentage;
+    #date; 
+    #hits; 
+    #percentage;
+
     constructor(date, hits, percentage) {
         this.#date = date;
         this.#hits = hits;
         this.#percentage = percentage;
     }
+
     getDate() {return this.#date;}
     getHits() {return this.#hits;}
     getPercentage() {return this.#percentage;}
@@ -64,6 +73,7 @@ function startGame() {
     clearInterval(timer);
     backgroundMusic.pause(); 
     backgroundMusic.currentTime = 0; 
+    sidebar.classList.remove("active");
     time = 99;
     score = 0;
     totalWordsShown = 0;
@@ -87,7 +97,7 @@ function startGame() {
 function updateTime() {
     time--;
     timeEl.textContent = time;
-    if (time <= 0) endGame();
+    if (time <= 0) {endGame();}
 }
 
 function endGame() {
@@ -106,6 +116,26 @@ function endGame() {
         gameOverMusic.play();
     }
     wordEl.textContent = `Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
+
+    saveHighScore(score);
+    sidebar.classList.add("active");
+}
+
+function saveHighScore(newScore) {
+    highScores.push(newScore);
+    highScores.sort((a, b) => b - a); 
+    highScores = highScores.slice(0, 3); 
+    // Save to LocalStorage (JSON.stringify converts Array to string)
+    localStorage.setItem('highScores', JSON.stringify(highScores));
+
+    updateScoreUI();
+}
+
+function updateScoreUI() {
+    const scoreElements = document.querySelectorAll(".score-val");
+    highScores.forEach((s, i) => {
+        if (scoreElements[i]) scoreElements[i].textContent = s;
+    });
 }
 
 startBtn.addEventListener("click", startGame);
@@ -135,6 +165,14 @@ inputEl.addEventListener("input", () => {
     }
 });
 
+statsBtn.addEventListener("click", () => {
+    sidebar.classList.add("active");
+});
+
+closeSidebar.addEventListener("click", () => {
+    sidebar.classList.remove("active");
+});
+
 themeBtn.addEventListener("click", () => {
     document.body.classList.toggle('purple'); 
 });
@@ -151,3 +189,6 @@ muteBtn.addEventListener("click", () => {
     victoryMusic.muted = gameOverMusic.muted = isMuted;
     muteBtn.textContent = isMuted ? "Unmute" : "Mute";
 });
+
+// Initialize Score UI on Page Load
+updateScoreUI();
