@@ -15,10 +15,10 @@ const words = ['dinosaur','love','pineapple','calendar','robot',
     'science','mystery','famous','league','memory','leather','planet','software',
     'update','yellow','keyboard','window'];
 
-const backgroundMusic = new Audio('./assets/media/background-sound.mp3');
+const backgroundMusic = new Audio('../assets/media/background-sound.mp3');
 backgroundMusic.loop = true;
-const gameOverMusic = new Audio('./assets/media/end.mp3');
-const victoryMusic = new Audio('./assets/media/Winning-sounds.mp3');
+const gameOverMusic = new Audio('../assets/media/end.mp3');
+const victoryMusic = new Audio('../assets/media/winning-sound.mp3');
 
 let time = 99;
 let score = 0;
@@ -52,20 +52,30 @@ function getRandomWord() {
 
 function nextWord() {
     currentWord = getRandomWord();
+    totalWordsShown++;
     wordEl.textContent = currentWord;
     wordEl.style.color = "white";
 }
 
 function startGame() {
+    clearInterval(timer);
+    backgroundMusic.pause();
     time = 99;
     score = 0;
     timeEl.textContent = time;
     scoreEl.textContent = score;
+    totalWordsShown = 0;
     inputEl.disabled = false;
     inputEl.value = "";
     inputEl.focus();
+
     backgroundMusic.currentTime = 0;
-    backgroundMusic.play().catch(() => console.log("Click the page to enable audio"));
+    backgroundMusic.volume = 0.3;
+    backgroundMusic.loop = true;
+    backgroundMusic.play().catch(error => {
+        console.log("Audio blocked:", error);
+    });
+
     nextWord();
     clearInterval(timer);
     timer = setInterval(updateTime, 1000);
@@ -80,8 +90,9 @@ function updateTime() {
 function endGame() {
     clearInterval(timer);
     inputEl.disabled = true;
+    inputEl.blur();
     backgroundMusic.pause();
-    const percentage = Math.round((score / words.length) * 100);
+    const percentage = Math.round((score / totalWordsShown) * 100);
     const today = new Date().toLocaleDateString();
     const finalResult = new Score(today, score, percentage);
 
@@ -119,6 +130,10 @@ inputEl.addEventListener("input", () => {
 themeBtn.addEventListener("click", () => {
     document.body.classList.toggle('pink'); 
 });
+
+document.addEventListener("click", () => {
+    backgroundMusic.load();
+}, { once: true });
 
 volumeSlider.addEventListener("input", (e) => {
     const vol = e.target.value;
