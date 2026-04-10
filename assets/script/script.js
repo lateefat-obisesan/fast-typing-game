@@ -25,6 +25,7 @@ let time = 99;
 let score = 0;
 let currentWord = "";
 let timer = null;
+let totalWordsShown = 0;
 
 const wordEl = document.getElementById("word");
 const inputEl = document.getElementById("input");
@@ -61,25 +62,41 @@ function nextWord() {
 function startGame() {
     clearInterval(timer);
     backgroundMusic.pause();
+    backgroundMusic.currentTime = 0;
     time = 99;
     score = 0;
+    totalWordsShown = 0;
     timeEl.textContent = time;
     scoreEl.textContent = score;
-    totalWordsShown = 0;
     inputEl.disabled = false;
     inputEl.value = "";
     inputEl.focus();
 
-    backgroundMusic.currentTime = 0;
-    backgroundMusic.volume = 0.3;
+  function startGame() {
+    clearInterval(timer);
+    backgroundMusic.pause(); 
+    backgroundMusic.currentTime = 0; 
+
+    time = 99;
+    score = 0;
+    totalWordsShown = 0;
+    timeEl.textContent = time;
+    scoreEl.textContent = score;
+
+    inputEl.disabled = false;
+    inputEl.value = "";
+    inputEl.focus();
+
     backgroundMusic.loop = true;
+    backgroundMusic.volume = volumeSlider.value; 
+    
     backgroundMusic.play().catch(error => {
         console.log("Audio blocked:", error);
     });
 
     nextWord();
-    clearInterval(timer);
     timer = setInterval(updateTime, 1000);
+}
 }
 
 function updateTime() {
@@ -131,10 +148,6 @@ inputEl.addEventListener("input", () => {
 themeBtn.addEventListener("click", () => {
     document.body.classList.toggle('pink'); 
 });
-
-document.addEventListener("click", () => {
-    backgroundMusic.load();
-}, { once: true });
 
 volumeSlider.addEventListener("input", (e) => {
     const vol = e.target.value;
