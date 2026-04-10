@@ -14,6 +14,9 @@
     </head>
     <body class="theme">
         <button id="themeBtn" class="top-left-btn">Change Theme</button>
+        <button id="statsBtn" class="top-left-btn">
+            <i class="fa-solid fa-user"></i> Stats
+        </button>
         <div class="vol-box">
             <div class="vol-control">
                 <span>Vol</span>
@@ -30,6 +33,27 @@
             <h2 id="word">Ready?</h2>
             <input type="text" id="input" placeholder="Type here..." disabled autocomplete="off">
             <button id="startBtn">Start Game</button>
+        </div>
+        <div id="statsSidebar" class="sidebar">
+        <div class="sidebar-header">
+            <i class="fa-solid fa-circle-user user-main-icon"></i>
+            <button id="closeSidebar">&times;</button>
+        </div>
+        <div class="sidebar-content">
+            <h3 style="margin-top: 20px;">Top 3 Scores</h3>
+            <ul id="highScoresList">
+                <li>1. <span class="score-val">0</span></li>
+                <li>2. <span class="score-val">0</span></li>
+                <li>3. <span class="score-val">0</span></li>
+            </ul>
+            <h3>Rank Legend</h3>
+            <div class="rank-scroller">
+                <div class="rank-item"> Newbie (0-20)</div>
+                <div class="rank-item"> Warrior (21-50)</div>
+                <div class="rank-item"> Speed Demon (51-80)</div>
+                <div class="rank-item"> Type-Fast God (81+)</div>
+            </div>
+        </div>
         </div>
     </body>
 </html>
