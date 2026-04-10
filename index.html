@@ -13,18 +13,58 @@
         <title>Type-Fast</title>
     </head>
     <body class="theme">
-        <button id="themeBtn" class="top-left-btn">Change Background-Color</button>
+       <div class="controls-left">
+            <button id="themeBtn">Change Theme</button>
+            <button id="statsBtn">
+                <i class="fa-solid fa-user"></i> Stats
+            </button>
+        </div>
         <div class="vol-box">
-            <button id="muteBtn"> Mute</button>
-            <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+            <div class="vol-control">
+                <span>Vol</span>
+                <input type="range" id="volumeSlider" min="0" max="1" step="0.1" value="0.5">
+            </div>
+            <button id="muteBtn">Mute</button>
         </div>
         <h1>Welcome to Type-Fast</h1>
         <div id="game">
-            <p>Time: <span id="time">99</span>secs</p>
-            <p>Score: <span id="score">0</span></p>
+            <div class="stats">
+                <p>Time: <span id="time">99</span>s</p>
+                <p>Score: <span id="score">0</span></p>
+            </div>
             <h2 id="word">Ready?</h2>
             <input type="text" id="input" placeholder="Type here..." disabled autocomplete="off">
             <button id="startBtn">Start Game</button>
+        </div>
+        <div id="statsSidebar" class="stats-modal">
+            <div class="modal-content">
+                <button id="closeSidebar" class="close-btn">&times;</button>
+                <div class="modal-header">
+                    <i class="fa-solid fa-circle-user user-main-icon"></i>
+                    <h2>Player Stats</h2>
+                </div>
+                <div class="modal-body">
+                <h3>Top 3 High Scores</h3>
+                <ul id="highScoresList">
+                    <li>Rank 1: <span class="score-val">0</span></li>
+                    <li>Rank 2: <span class="score-val">0</span></li>
+                    <li>Rank 3: <span class="score-val">0</span></li>
+                </ul>
+                <h3>Rank Legend</h3>
+                <div class="rank-window">
+                    <div class="rank-slider">
+                        <span> Newbie (0-20)</span>
+                        <span> Warrior (21-50)</span>
+                        <span> Speed Demon (51-80)</span>
+                        <span> Type-Fast God (81+)</span>
+                        <span> Newbie (0-20)</span>
+                        <span> Warrior (21-50)</span>
+                        <span> Speed Demon (51-80)</span>
+                        <span> Type-Fast God (81+)</span>
+                    </div>
+                </div>
+                </div>
+            </div>
         </div>
     </body>
 </html>
