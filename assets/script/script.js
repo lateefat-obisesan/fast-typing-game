@@ -139,7 +139,7 @@ inputEl.addEventListener("input", () => {
         wordEl.style.color = "white";
     } else {
         wordEl.style.color = "red";
-        inputEl.value = typed.slice(0, -1); 
+        inputEl.value = inputEl.value.slice(0, -1);
         return; 
     }
 
