@@ -29,7 +29,7 @@ let timer = null;
 let totalWordsShown = 0;
 
 // Retrieve High Scores from LocalStorage (JSON.parse converts string to Array)
-let highScores = JSON.parse(localStorage.getItem('highScores')) || [0, 0, 0];
+let highScores = JSON.parse(localStorage.getItem('scores')) || [];
 
 const wordEl = document.getElementById("word");
 const inputEl = document.getElementById("input");
