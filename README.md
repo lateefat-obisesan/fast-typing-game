@@ -12,9 +12,10 @@ The game includes sound effects, themes, player statistics, and persistent high 
 - Background music and sound effects
 - Volume control and mute button
 - Theme switcher
-- Top 3 High Scores system
+- Top 9 High Scores system
 - LocalStorage score saving
 - Player statistics modal
+- Sorted leaderboard using objects and arrays
 - Responsive design
 
 ## Technologies Used
@@ -30,8 +31,24 @@ The game includes sound effects, themes, player statistics, and persistent high 
 4. Continue typing before the timer ends
 5. View your score and ranking after the game
 
-## Author
-**Team members**
+## Game Mechanics
+- Words are randomly selected from a predefined word list
+- Correct typing increases the score
+- Incorrect characters are prevented from being entered
+- Timer counts down every second
+- Game ends automatically when time reaches zero
+- Player scores are saved and sorted using LocalStorage
+
+## Concepts Demonstrated
+- DOM Manipulation
+- Event Handling
+- JavaScript Objects and Arrays
+- JSON.parse() and JSON.stringify()
+- LocalStorage Data Persistence
+- Timers and Intervals
+- Audio API usage
+
+## Authors
 - Lateefat
 - Ivan
 
@@ -39,4 +56,4 @@ The game includes sound effects, themes, player statistics, and persistent high 
 **Click [here]( https://lateefat-obisesan.github.io/fast-typing-game/) to play:**  
 
 ## Note
-This project was developed for educational purposes as part of a web development course.
+This project was developed for educational purposes as part of a web course.
