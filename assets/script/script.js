@@ -22,7 +22,7 @@ backgroundMusic.loop = true;
 const gameOverMusic = new Audio('./assets/media/end.mp3');
 const victoryMusic = new Audio('./assets/media/winning-sound.mp3');
 
-let time = 30;
+let time = 99;
 let score = 0;
 let currentWord = "";
 let timer = null;
