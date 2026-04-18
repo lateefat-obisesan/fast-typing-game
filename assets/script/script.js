@@ -22,7 +22,7 @@ backgroundMusic.loop = true;
 const gameOverMusic = new Audio('./assets/media/end.mp3');
 const victoryMusic = new Audio('./assets/media/winning-sound.mp3');
 
-let time = 99;
+let time = 30;
 let score = 0;
 let currentWord = "";
 let timer = null;
@@ -41,22 +41,6 @@ const closeSidebar = document.getElementById("closeSidebar");
 const themeBtn = document.getElementById("themeBtn");
 const volumeSlider = document.getElementById("volumeSlider");
 const muteBtn = document.getElementById("muteBtn");
-
-class Score {
-    #date; 
-    #hits; 
-    #percentage;
-
-    constructor(date, hits, percentage) {
-        this.#date = date;
-        this.#hits = hits;
-        this.#percentage = percentage;
-    }
-
-    getDate() {return this.#date;}
-    getHits() {return this.#hits;}
-    getPercentage() {return this.#percentage;}
-}
 
 function getRandomWord() {
     return words[Math.floor(Math.random() * words.length)];
@@ -84,7 +68,6 @@ function startGame() {
     inputEl.value = "";
     inputEl.focus();
 
-    backgroundMusic.loop = true;
     backgroundMusic.volume = volumeSlider.value; 
     backgroundMusic.play().catch(error => {
         console.log("Audio blocked:", error);
@@ -119,7 +102,7 @@ function endGame() {
     } else {
         gameOverMusic.play();
     }
-    wordEl.textContent = `Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
+    wordEl.textContent = `Score: ${result.hits} (${result.percentage}%)`;
 
     saveScore(result);
     sidebar.classList.add("active");
@@ -198,5 +181,4 @@ muteBtn.addEventListener("click", () => {
     muteBtn.textContent = isMuted ? "Unmute" : "Mute";
 });
 
-// Initialize Score UI on Page Load
 updateScoreUI();
