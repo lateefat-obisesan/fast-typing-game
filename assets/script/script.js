@@ -28,8 +28,7 @@ let currentWord = "";
 let timer = null;
 let totalWordsShown = 0;
 
-// Retrieve High Scores from LocalStorage (JSON.parse converts string to Array)
-let highScores = JSON.parse(localStorage.getItem('scores')) || [];
+let scores = JSON.parse(localStorage.getItem('scores')) || [];
 
 const wordEl = document.getElementById("word");
 const inputEl = document.getElementById("input");
@@ -109,7 +108,11 @@ function endGame() {
 
     const percentage = totalWordsShown > 0 ? Math.round((score / totalWordsShown) * 100) : 0;
     const today = new Date().toLocaleDateString();
-    const finalResult = new Score(today, score, percentage);
+    const result = {
+        date: today,
+        hits: score,
+        percentage: percentage
+    };
 
     if (score === words.length) {
         victoryMusic.play();
@@ -118,24 +121,28 @@ function endGame() {
     }
     wordEl.textContent = `Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
 
-    saveHighScore(score);
+    saveScore(result);
     sidebar.classList.add("active");
 }
 
-function saveHighScore(newScore) {
-    highScores.push(newScore);
-    highScores.sort((a, b) => b - a); 
-    highScores = highScores.slice(0, 3); 
-    // Save to LocalStorage (JSON.stringify converts Array to string)
-    localStorage.setItem('highScores', JSON.stringify(highScores));
+function saveScore(newScore) {
+    scores.push(newScore);
+    scores.sort((a, b) => b.hits - a.hits);
+    scores.splice(9);
+    localStorage.setItem("scores", JSON.stringify(scores));
 
     updateScoreUI();
 }
 
 function updateScoreUI() {
-    const scoreElements = document.querySelectorAll(".score-val");
-    highScores.forEach((s, i) => {
-        if (scoreElements[i]) scoreElements[i].textContent = s;
+    const list = document.getElementById("highScoresList");
+    list.innerHTML = "";
+    scores.forEach((s, index) => {
+        const li = document.createElement("li");
+        li.innerHTML =
+            `Rank ${index + 1}: 
+             <span>${s.hits} hits (${s.percentage}%) - ${s.date}</span>`;
+             list.appendChild(li);
     });
 }
 
