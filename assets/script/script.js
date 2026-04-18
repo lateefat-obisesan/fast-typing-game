@@ -28,8 +28,7 @@ let currentWord = "";
 let timer = null;
 let totalWordsShown = 0;
 
-// Retrieve High Scores from LocalStorage (JSON.parse converts string to Array)
-let highScores = JSON.parse(localStorage.getItem('highScores')) || [0, 0, 0];
+let scores = JSON.parse(localStorage.getItem('scores')) || [];
 
 const wordEl = document.getElementById("word");
 const inputEl = document.getElementById("input");
@@ -42,22 +41,6 @@ const closeSidebar = document.getElementById("closeSidebar");
 const themeBtn = document.getElementById("themeBtn");
 const volumeSlider = document.getElementById("volumeSlider");
 const muteBtn = document.getElementById("muteBtn");
-
-class Score {
-    #date; 
-    #hits; 
-    #percentage;
-
-    constructor(date, hits, percentage) {
-        this.#date = date;
-        this.#hits = hits;
-        this.#percentage = percentage;
-    }
-
-    getDate() {return this.#date;}
-    getHits() {return this.#hits;}
-    getPercentage() {return this.#percentage;}
-}
 
 function getRandomWord() {
     return words[Math.floor(Math.random() * words.length)];
@@ -85,7 +68,6 @@ function startGame() {
     inputEl.value = "";
     inputEl.focus();
 
-    backgroundMusic.loop = true;
     backgroundMusic.volume = volumeSlider.value; 
     backgroundMusic.play().catch(error => {
         console.log("Audio blocked:", error);
@@ -109,33 +91,41 @@ function endGame() {
 
     const percentage = totalWordsShown > 0 ? Math.round((score / totalWordsShown) * 100) : 0;
     const today = new Date().toLocaleDateString();
-    const finalResult = new Score(today, score, percentage);
+    const result = {
+        date: today,
+        hits: score,
+        percentage: percentage
+    };
 
     if (score === words.length) {
         victoryMusic.play();
     } else {
         gameOverMusic.play();
     }
-    wordEl.textContent = `Score: ${finalResult.getHits()} (${finalResult.getPercentage()}%)`;
+    wordEl.textContent = `Score: ${result.hits} (${result.percentage}%)`;
 
-    saveHighScore(score);
+    saveScore(result);
     sidebar.classList.add("active");
 }
 
-function saveHighScore(newScore) {
-    highScores.push(newScore);
-    highScores.sort((a, b) => b - a); 
-    highScores = highScores.slice(0, 3); 
-    // Save to LocalStorage (JSON.stringify converts Array to string)
-    localStorage.setItem('highScores', JSON.stringify(highScores));
+function saveScore(newScore) {
+    scores.push(newScore);
+    scores.sort((a, b) => b.hits - a.hits);
+    scores.splice(9);
+    localStorage.setItem("scores", JSON.stringify(scores));
 
     updateScoreUI();
 }
 
 function updateScoreUI() {
-    const scoreElements = document.querySelectorAll(".score-val");
-    highScores.forEach((s, i) => {
-        if (scoreElements[i]) scoreElements[i].textContent = s;
+    const list = document.getElementById("highScoresList");
+    list.innerHTML = "";
+    scores.forEach((s, index) => {
+        const li = document.createElement("li");
+        li.innerHTML =
+            `Rank ${index + 1}: 
+             <span>${s.hits} hits (${s.percentage}%) - ${s.date}</span>`;
+             list.appendChild(li);
     });
 }
 
@@ -149,7 +139,7 @@ inputEl.addEventListener("input", () => {
         wordEl.style.color = "white";
     } else {
         wordEl.style.color = "red";
-        inputEl.value = typed.slice(0, -1); 
+        inputEl.value = inputEl.value.slice(0, -1);
         return; 
     }
 
@@ -191,5 +181,4 @@ muteBtn.addEventListener("click", () => {
     muteBtn.textContent = isMuted ? "Unmute" : "Mute";
 });
 
-// Initialize Score UI on Page Load
 updateScoreUI();
